@@ -24,7 +24,7 @@ background_img = pygame.transform.scale2x(pygame.image.load(os.path.join("assets
 
 # Game fonts
 pygame.font.init()  # Initialize font module
-info_font = pygame.font.SysFont("comicsans", 50)
+info_font = pygame.font.SysFont("roboto", 50)
 
 #Creating the ship class
 class Ship:
@@ -175,6 +175,10 @@ def render_window(window, spacecrafts, projectiles, planet, score, generation):
     # Display the generation
     gen_text = info_font.render("Gen: " + str(generation), True, (255, 255, 255))
     window.blit(gen_text, (10, 10))
+
+    #Display the alive spacecrafts
+    alive_text = info_font.render("Alive: " + str(len(spacecrafts)), True, (255, 255, 255))
+    window.blit(alive_text, (10, 50))
     
     planet.render(window)
 
@@ -262,6 +266,10 @@ def main(genomes, config):
                 spacecrafts.pop(ii)
                 neural_networks.pop(ii)
                 genetic_engines.pop(ii)
+
+        #Setting limit on the score
+        if score > 50:
+            break
 
         render_window(window, spacecrafts, lasers, planet, score, generation)  
 
